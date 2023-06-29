@@ -1,6 +1,6 @@
 import pygame as pyg
-import ship
-import endless_bg
+import ship 
+import endless_bg 
 
 pyg.init()
 screen = pyg.display.set_mode((720,720))
