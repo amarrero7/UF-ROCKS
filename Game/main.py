@@ -2,6 +2,7 @@ import pygame as pyg
 import ship 
 import endless_bg 
 import rock
+import random as r
 
 pyg.init()
 screen = pyg.display.set_mode((720,720))
@@ -13,9 +14,10 @@ ship1 = ship.Ship(screen=screen, x=330, y=600, frames=60)
 
 background = endless_bg.Endless_BG(frames=60, screen=screen)
 
-rock1 = rock.Rock(screen=screen, frames=60)
-
-obstacles = []
+rocks = []
+for i in range(0,5):
+    new_rock = rock.Rock(screen=screen, frames=60)
+    rocks.append(new_rock)
 
 while running:
     for event in pyg.event.get():
@@ -28,10 +30,10 @@ while running:
     ship1.move()
     ship1.draw()
 
-    rock1.tick()
-    if ship1.y == rock1.y and (rock1.x >= ship1.x - 20 and rock1.x <= ship1.x + 60):
-        running = False
-
-    rock1.draw()
+    for rock in rocks:
+        rock.tick()
+        if rock.collided(ship1):
+            running = False
+        rock.draw()
 
     pyg.display.update()
