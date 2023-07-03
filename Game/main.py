@@ -2,8 +2,8 @@ import pygame as pyg
 import ship 
 import endless_bg 
 from rock import Rock
-import random as r
 import time
+import random as r
 
 pyg.init()
 screen = pyg.display.set_mode((720,720))
@@ -14,42 +14,37 @@ start_time = time.time()
 
 running = True
 
-ship1 = ship.Ship(screen=screen, x=330, y=600, frames=60)
+ship1 = ship.Ship(screen=screen, x=330, y=600)
 
 background = endless_bg.Endless_BG(frames=60, screen=screen)
 
-rocks = []
-def add_rocks():
-    for i in range(0,5):
-        new_rock = Rock(screen=screen, frames=60)
-        rocks.append(new_rock)
-add_rocks()
+rocks = [Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)) for _ in range(5)]
 
 while running:
+    # Closing game 
     for event in pyg.event.get():
         if event.type == pyg.QUIT:
             running = False
 
-    clock.tick(120)
-
+    # Timer
     end_time = time.time()
     if abs(start_time - end_time) >= 10:
-        print("10 seconds passed, new rock added")
-        time.sleep(0.001)
-        rocks.append(Rock(screen=screen, frames=60))
+        rocks.append(Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)))
         start_time = time.time()
-    background.tick(3)
-    ship1.move()
 
-    for rock in rocks:
-        if rock.collided(ship1.x, ship1.y):
-            running = False
-        rock.tick()
+    # Updates and Logic
+    background.tick(2)
     background.draw()
+    ship1.move()
     ship1.draw()
 
     for rock in rocks:
+        rock.tick()
         rock.draw()
 
+        if ship1.mask.overlap(rock.mask, (rock.rect.x - ship1.rect.x, rock.rect.y - ship1.rect.y)):
+            running = False
+
     pyg.display.flip()
+    clock.tick(60)
 
