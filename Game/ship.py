@@ -21,8 +21,8 @@ class Ship():
         key = pyg.key.get_pressed()
 
         if key[pyg.K_a]:
-            if self.x - (400 * dt) > -5:
-                self.x -= 400 * dt
+            if self.x - 4 >= -5:
+                self.x -= 4
         if key[pyg.K_d]:
-            if self.x + (400 * dt) < 665:
-                self.x += 400 * dt
+            if self.x + 4 <= 665:
+                self.x += 4
