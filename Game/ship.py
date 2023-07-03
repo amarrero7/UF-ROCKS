@@ -22,7 +22,7 @@ class Ship():
 
         if key[pyg.K_a]:
             if self.x - 4 >= -5:
-                self.x -= 4
+                self.x -= 4 
         if key[pyg.K_d]:
             if self.x + 4 <= 665:
                 self.x += 4
