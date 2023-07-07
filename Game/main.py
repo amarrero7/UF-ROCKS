@@ -4,6 +4,7 @@ import endless_bg
 from rock import Rock
 import time
 import random as r
+from controller import Hand_Controller
 
 pyg.init()
 screen = pyg.display.set_mode((720,720))
@@ -20,10 +21,13 @@ background = endless_bg.Endless_BG(frames=60, screen=screen)
 
 rocks = [Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)) for _ in range(5)]
 
+hand_controller = Hand_Controller()
+
 while running:
     # Closing game 
     for event in pyg.event.get():
         if event.type == pyg.QUIT:
+            hand_controller.close_cam()
             running = False
 
     # Timer
@@ -35,7 +39,10 @@ while running:
     # Updates and Logic
     background.tick(2)
     background.draw()
-    ship1.move()
+
+    hand_controller.detect_hand()
+
+    ship1.rect.x = 720 * hand_controller.get_hand_position()
     ship1.draw()
 
     for rock in rocks:
