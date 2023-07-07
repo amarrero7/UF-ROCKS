@@ -15,7 +15,7 @@ class Rock():
         pyg.draw.rect(self.screen, "white", self.rect)
 
     def tick(self) -> None:
-        if self.rect.y + 8 >= 740:
+        if self.rect.y + 16 >= 740:
             self.rect.x = r.randint(20,700)
             self.rect.y = r.randint(-150,1)
-        self.rect.y += 8
+        self.rect.y += 16
