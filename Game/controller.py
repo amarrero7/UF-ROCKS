@@ -22,7 +22,6 @@ class Hand_Controller:
         frame_loaded, frame = self.capture.read()
 
         if not frame_loaded:
-            # print("Cannot load frame")
             return
 
         frame = cv2.flip(frame, 1)
@@ -33,6 +32,5 @@ class Hand_Controller:
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 self.hand_x = hand_landmarks.landmark[self.mp_hands.HandLandmark.WRIST].x
-                print("Hand postiton: " + str(self.hand_x))
 
 
