@@ -1,28 +1,29 @@
 import pygame as pyg
 import os
+from rock import Rock
 
 class Ship():
 
-    def __init__(self, screen, x, y, frames):
+    def __init__(self, screen, x, y):
         self.image = pyg.image.load(os.getcwd() + "/Resources/Ships/spaceship.png")
         self.image = pyg.transform.scale(self.image, (60,60))
         self.screen = screen
-        self.frames = frames
-        self.x = x
-        self.y = y
         self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.mask = pyg.mask.from_surface(self.image)
 
     def draw(self):
-        self.screen.blit(self.image, (self.x, self.y),) 
+        self.screen.blit(self.image, self.rect)
 
     def move(self):
-        dt = pyg.time.Clock().tick(self.frames) / 1000
 
         key = pyg.key.get_pressed()
 
         if key[pyg.K_a]:
-            if self.x - 4 >= -5:
-                self.x -= 4 
+            if self.rect.x - 5 >= -5:
+                self.rect.x -= 5
         if key[pyg.K_d]:
-            if self.x + 4 <= 665:
-                self.x += 4
+            if self.rect.x + 5 <= 665:
+                self.rect.x += 5
+
