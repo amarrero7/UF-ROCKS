@@ -1,6 +1,5 @@
 import pygame as pyg
 import os
-from rock import Rock
 
 class Ship():
 

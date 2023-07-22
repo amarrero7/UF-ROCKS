@@ -22,6 +22,7 @@ background = Endless_BG(frames=60, screen=screen)
 rocks = [Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)) for _ in range(5)]
 
 hand_controller = Hand_Controller()
+camera_available = hand_controller.cam_available()
 
 while running:
     # Closing game 
@@ -35,19 +36,14 @@ while running:
     if abs(start_time - end_time) >= 10:
         rocks.append(Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)))
         start_time = time.time()
-<<<<<<< HEAD
-        
-    background.tick(3)
-    ship1.move()
-=======
->>>>>>> 77de28c806dee5ba9a95bea2a60089059977e2f8
 
     # Updates and Logic
     background.tick(speed=2)
     background.draw()
 
-    hand_controller.detect_hand()
-    ship1.rect.x = 720 * hand_controller.get_hand_position()
+    if camera_available:
+        hand_controller.detect_hand()
+        ship1.rect.x = 720 * hand_controller.get_hand_position()
     ship1.move()
     ship1.draw()
 
