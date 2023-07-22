@@ -38,6 +38,7 @@ while running:
         time.sleep(0.001)
         rocks.append(Rock(screen=screen, frames=60))
         start_time = time.time()
+        
     background.tick(3)
     ship1.move()
 
