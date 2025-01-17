@@ -24,6 +24,10 @@ rocks = [Rock(screen=screen, x=r.randint(20, 700), y=r.randint(-150, 1)) for _ i
 hand_controller = Hand_Controller()
 camera_available = hand_controller.cam_available()
 
+if not camera_available:
+    print('Camera not available. Camera needed to play :(')
+    running = False
+
 while running:
     # Closing game 
     for event in pyg.event.get():
@@ -41,9 +45,9 @@ while running:
     background.tick(speed=2)
     background.draw()
 
-    if camera_available:
-        hand_controller.detect_hand()
-        ship1.rect.x = 720 * hand_controller.get_hand_position()
+    hand_controller.detect_hand()
+    ship1.rect.x = 720 * hand_controller.get_hand_position()
+
     ship1.move()
     ship1.draw()
 
